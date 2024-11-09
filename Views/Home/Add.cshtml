@@ -1,0 +1,27 @@
+@model PetAdoptionApp.Models.Pet
+
+<h1>Add a New Pet</h1>
+
+<form method="post">
+    <div>
+        <label>Name</label>
+        <input asp-for="Name" />
+    </div>
+    <div>
+        <label>Species</label>
+        <input asp-for="Species" />
+    </div>
+    <div>
+        <label>Age</label>
+        <input asp-for="Age" />
+    </div>
+    <div>
+        <label>Breed</label>
+        <input asp-for="Breed" />
+    </div>
+    <div>
+        <label>Image URL</label>
+        <input asp-for="ImageUrl" />
+    </div>
+    <button type="submit">Add Pet</button>
+</form>
