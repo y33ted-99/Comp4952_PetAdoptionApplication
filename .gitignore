@@ -1,0 +1,82 @@
+# Ignore build results
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore logs, debug, and crash files
+*.log
+*.tlog
+*.vsp
+*.vspx
+*.vspscc
+*.cache
+*.pdb
+
+# Ignore Visual Studio Code workspace settings
+.vscode/
+
+# Ignore Visual Studio files
+.vs/
+.idea/
+
+# Ignore Rider files
+.idea/
+
+# Ignore NuGet packages
+*.nupkg
+*.snupkg
+packages/
+
+# Ignore NCrunch
+*.ncrunch*
+.*.ncrunch*
+NCrunchTemp/
+
+# Ignore Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Ignore publish folder
+publish/
+
+# Ignore build artifacts
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Ignore configuration files
+appsettings.Development.json
+appsettings.*.json
+
+# Ignore coverage results
+coverage/
+*.coverage
+*.coveragexml
+*.coveragejson
+
+# Ignore JetBrains Rider files
+.idea/
+
+# Ignore local database files
+*.mdf
+*.ldf
+*.db
+
+# Ignore Generated Files
+Generated/
+
+# Ignore Node.js files (if using with frontend in the same project)
+node_modules/
+npm-debug.log
+yarn-error.log
