@@ -20,7 +20,7 @@ namespace PetAdoptionApplication.Migrations
                     Species = table.Column<string>(type: "TEXT", nullable: false),
                     Age = table.Column<int>(type: "INTEGER", nullable: false),
                     Breed = table.Column<string>(type: "TEXT", nullable: false),
-                    ImageUrl = table.Column<string>(type: "TEXT", nullable: false),
+                    ImageUrl = table.Column<byte[]>(type: "BLOB", nullable: false),
                     IsFavorite = table.Column<bool>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false)
                 },

@@ -2,23 +2,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetAdoptionApp.Data;
 using PetAdoptionApp.Models;
-using Microsoft.EntityFrameworkCore;
 using PetAdoptionApp.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System;
 
 namespace PetAdoptionApp.Controllers
 {
     public class PetsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public PetsController(ApplicationDbContext context)
+        public PetsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
-        // Display list of pets on the homepage
         public async Task<IActionResult> Index()
         {
             var pets = await _context.Pets.ToListAsync();
@@ -36,7 +40,6 @@ namespace PetAdoptionApp.Controllers
             return View(pet);
         }
 
-        // Add a new pet
         [HttpGet]
         public IActionResult Add()
         {
@@ -44,25 +47,40 @@ namespace PetAdoptionApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Pet pet)
+        public async Task<IActionResult> Add(Pet pet, IFormFile ImageUrl)
         {
+            if (ImageUrl != null && ImageUrl.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await ImageUrl.CopyToAsync(memoryStream);
+                    pet.ImageUrl = memoryStream.ToArray();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("ImageUrl", "An image is required.");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Pets.Add(pet);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(pet);
         }
 
         // Display favorite pets
         public async Task<IActionResult> Favorites()
         {
-            // Logic to retrieve favorite pets
             var pets = await _context.Pets.Where(p => p.IsFavorite).ToListAsync();
             return View(pets);
         }
 
+        // Toggle favorite status
+        [HttpPost]
         public async Task<IActionResult> ToggleFavorite(int id)
         {
             var pet = await _context.Pets.FindAsync(id);
@@ -76,33 +94,6 @@ namespace PetAdoptionApp.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "Home");
-        }
-
-        public async Task<IActionResult> Filter(string species, int? minAge, int? maxAge, string breed)
-        {
-            var pets = _context.Pets.AsQueryable();
-
-            if (!string.IsNullOrEmpty(species))
-            {
-                pets = pets.Where(p => p.Species == species);
-            }
-
-            if (minAge.HasValue)
-            {
-                pets = pets.Where(p => p.Age >= minAge);
-            }
-
-            if (maxAge.HasValue)
-            {
-                pets = pets.Where(p => p.Age <= maxAge);
-            }
-
-            if (!string.IsNullOrEmpty(breed))
-            {
-                pets = pets.Where(p => p.Breed.Contains(breed));
-            }
-
-            return View(await pets.ToListAsync());
         }
 
         public async Task<IActionResult> Search(PetSearchViewModel searchModel)
@@ -140,9 +131,5 @@ namespace PetAdoptionApp.Controllers
 
             return View(searchModel);
         }
-
-
-            
-
-    }  
+    }
 }

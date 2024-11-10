@@ -6,22 +6,22 @@ namespace PetAdoptionApp.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Species is required.")]
         public string Species { get; set; }
 
+        [Required(ErrorMessage = "Age is required.")]
         public int Age { get; set; }
 
+        [Required(ErrorMessage = "Breed is required.")]
         public string Breed { get; set; }
 
-        public string ImageUrl { get; set; }
+        public byte[] ImageUrl { get; set; }
 
-        // Property to mark pets as favorites
         public bool IsFavorite { get; set; }
 
-        // New Description property
         public string Description { get; set; }
     }
 }

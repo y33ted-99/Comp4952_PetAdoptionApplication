@@ -10,7 +10,7 @@ using PetAdoptionApp.Data;
 namespace PetAdoptionApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241110072327_InitialCreate")]
+    [Migration("20241110092516_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -36,9 +36,9 @@ namespace PetAdoptionApplication.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<byte[]>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("BLOB");
 
                     b.Property<bool>("IsFavorite")
                         .HasColumnType("INTEGER");

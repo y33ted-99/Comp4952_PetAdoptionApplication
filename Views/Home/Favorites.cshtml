@@ -1,13 +1,34 @@
 @model IEnumerable<PetAdoptionApp.Models.Pet>
 
-<h1>My Favorite Pets</h1>
+<h1 class="text-center">My Favorite Pets</h1>
 
-@foreach (var pet in Model)
-{
-    <div>
-        <h3>@pet.Name</h3>
-        <p>@pet.Age</p>
-        <img src="@pet.ImageUrl" alt="@pet.Name" width="150" />
-        <a href="@Url.Action("Details", "Pets", new { id = pet.Id })">View Details</a>
-    </div>
-}
+<div class="container mt-4">
+    @if (!Model.Any())
+    {
+        <p>You have no favorite pets.</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var pet in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        @if (pet.ImageUrl != null)
+                        {
+                            string imageBase64 = Convert.ToBase64String(pet.ImageUrl);
+                            string imageDataURL = $"data:image/jpeg;base64,{imageBase64}";
+                            <img src="@imageDataURL" alt="@pet.Name" class="card-img-top" style="height: 200px; object-fit: cover;" />
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@pet.Name</h5>
+                            <p class="card-text">Age: @pet.Age</p>
+                            <p class="card-text">Breed: @pet.Breed</p>
+                            <a href="@Url.Action("Details", "Pets", new { id = pet.Id })" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
