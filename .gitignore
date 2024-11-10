@@ -80,3 +80,10 @@ Generated/
 node_modules/
 npm-debug.log
 yarn-error.log
+
+# Ignore LibMan libraries
+lib/
+
+# Ignore other build directories
+dist/
+build/
