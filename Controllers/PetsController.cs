@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetAdoptionApp.Data;
 using PetAdoptionApp.Models;
+using Microsoft.EntityFrameworkCore;
+using PetAdoptionApp.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PetAdoptionApp.Controllers
 {
@@ -100,6 +104,43 @@ namespace PetAdoptionApp.Controllers
 
             return View(await pets.ToListAsync());
         }
+
+        public async Task<IActionResult> Search(PetSearchViewModel searchModel)
+        {
+            var query = _context.Pets.AsQueryable();
+
+            // Apply filters based on search criteria
+            if (!string.IsNullOrEmpty(searchModel.Name))
+            {
+                query = query.Where(p => p.Name.Contains(searchModel.Name));
+            }
+
+            if (!string.IsNullOrEmpty(searchModel.Species))
+            {
+                query = query.Where(p => p.Species == searchModel.Species);
+            }
+
+            if (!string.IsNullOrEmpty(searchModel.Breed))
+            {
+                query = query.Where(p => p.Breed == searchModel.Breed);
+            }
+
+            if (searchModel.MinAge.HasValue)
+            {
+                query = query.Where(p => p.Age >= searchModel.MinAge.Value);
+            }
+
+            if (searchModel.MaxAge.HasValue)
+            {
+                query = query.Where(p => p.Age <= searchModel.MaxAge.Value);
+            }
+
+            // Execute the query and get the list of pets
+            searchModel.Pets = await query.ToListAsync();
+
+            return View(searchModel);
+        }
+
 
             
 

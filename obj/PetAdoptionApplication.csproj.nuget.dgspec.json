@@ -1,25 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sampa\\Documents\\Term 4\\COMP 4952\\Comp4952_PetAdoptionApplication\\PetAdoptionApplication.csproj": {}
+    "C:\\Users\\marco\\Desktop\\BCIT_Term_4\\project\\Comp4952_PetAdoptionApplication\\PetAdoptionApplication.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sampa\\Documents\\Term 4\\COMP 4952\\Comp4952_PetAdoptionApplication\\PetAdoptionApplication.csproj": {
+    "C:\\Users\\marco\\Desktop\\BCIT_Term_4\\project\\Comp4952_PetAdoptionApplication\\PetAdoptionApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sampa\\Documents\\Term 4\\COMP 4952\\Comp4952_PetAdoptionApplication\\PetAdoptionApplication.csproj",
+        "projectUniqueName": "C:\\Users\\marco\\Desktop\\BCIT_Term_4\\project\\Comp4952_PetAdoptionApplication\\PetAdoptionApplication.csproj",
         "projectName": "PetAdoptionApplication",
-        "projectPath": "C:\\Users\\sampa\\Documents\\Term 4\\COMP 4952\\Comp4952_PetAdoptionApplication\\PetAdoptionApplication.csproj",
-        "packagesPath": "C:\\Users\\sampa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sampa\\Documents\\Term 4\\COMP 4952\\Comp4952_PetAdoptionApplication\\obj\\",
+        "projectPath": "C:\\Users\\marco\\Desktop\\BCIT_Term_4\\project\\Comp4952_PetAdoptionApplication\\PetAdoptionApplication.csproj",
+        "packagesPath": "C:\\Users\\marco\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\marco\\Desktop\\BCIT_Term_4\\project\\Comp4952_PetAdoptionApplication\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\sampa\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\marco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,6 +51,10 @@
           "targetAlias": "net8.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[8.0.10, )"
             },
@@ -73,7 +84,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

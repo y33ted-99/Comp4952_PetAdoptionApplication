@@ -1,0 +1,65 @@
+@model PetAdoptionApp.ViewModels.PetSearchViewModel
+
+@{
+    ViewData["Title"] = "Search Pets";
+}
+
+<h2>Search Pets</h2>
+
+<form asp-action="Search" method="get">
+    <div>
+        <label>Name:</label>
+        <input type="text" name="Name" value="@Model.Name" />
+    </div>
+    <div>
+        <label>Species:</label>
+        <input type="text" name="Species" value="@Model.Species" />
+    </div>
+    <div>
+        <label>Breed:</label>
+        <input type="text" name="Breed" value="@Model.Breed" />
+    </div>
+    <div>
+        <label>Minimum Age:</label>
+        <input type="number" name="MinAge" value="@Model.MinAge" />
+    </div>
+    <div>
+        <label>Maximum Age:</label>
+        <input type="number" name="MaxAge" value="@Model.MaxAge" />
+    </div>
+    <button type="submit">Search</button>
+</form>
+
+@if (Model.Pets != null && Model.Pets.Any())
+{
+    <h3>Search Results</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Species</th>
+                <th>Breed</th>
+                <th>Age</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pet in Model.Pets)
+            {
+                <tr>
+                    <td>@pet.Name</td>
+                    <td>@pet.Species</td>
+                    <td>@pet.Breed</td>
+                    <td>@pet.Age</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@pet.Id">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model.Pets != null)
+{
+    <p>No pets found matching your criteria.</p>
+}

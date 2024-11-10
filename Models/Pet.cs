@@ -9,6 +9,7 @@ namespace PetAdoptionApp.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Species { get; set; }
 
         public int Age { get; set; }
@@ -17,7 +18,7 @@ namespace PetAdoptionApp.Models
 
         public string ImageUrl { get; set; }
 
-        // Add IsFavorite property to mark pets as favorites
+        // Property to mark pets as favorites
         public bool IsFavorite { get; set; }
 
         // New Description property
