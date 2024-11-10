@@ -71,7 +71,7 @@ namespace PetAdoptionApp.Controllers
             _context.Pets.Update(pet);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Filter(string species, int? minAge, int? maxAge, string breed)
@@ -100,6 +100,8 @@ namespace PetAdoptionApp.Controllers
 
             return View(await pets.ToListAsync());
         }
+
+            
 
     }  
 }

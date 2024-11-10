@@ -7,7 +7,9 @@
     <div>
         <h3>@pet.Name</h3>
         <p>@pet.Age</p>
-        <img src="@pet.ImageUrl" alt="@pet.Name" width="150" />
+        <a href="@Url.Action("Details", "Pets", new { id = pet.Id })">
+            <img src="@pet.ImageUrl" alt="@pet.Name" width="150" />
+        </a>
         <a href="@Url.Action("Details", "Pets", new { id = pet.Id })">View Details</a>
 
         <!-- Add button to mark/unmark as favorite -->
