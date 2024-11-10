@@ -19,5 +19,8 @@ namespace PetAdoptionApp.Models
 
         // Add IsFavorite property to mark pets as favorites
         public bool IsFavorite { get; set; }
+
+        // New Description property
+        public string Description { get; set; }
     }
 }

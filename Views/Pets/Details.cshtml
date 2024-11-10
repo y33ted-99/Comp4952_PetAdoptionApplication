@@ -1,0 +1,10 @@
+@model PetAdoptionApp.Models.Pet
+
+<h1>@Model.Name</h1>
+<img src="@Model.ImageUrl" alt="@Model.Name" width="300" />
+<p>Age: @Model.Age</p>
+<p>Description: @Model.Description</p>
+<p>Breed: @Model.Breed</p>
+<p>Is Favorite: @(Model.IsFavorite ? "Yes" : "No")</p>
+
+<a href="@Url.Action("Index", "Home")">Back to All Pets</a>
