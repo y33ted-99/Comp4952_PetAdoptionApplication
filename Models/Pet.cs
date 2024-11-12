@@ -13,6 +13,7 @@ namespace PetAdoptionApp.Models
         public string Species { get; set; }
 
         [Required(ErrorMessage = "Age is required.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Age must be at least 1.")]
         public int Age { get; set; }
 
         [Required(ErrorMessage = "Breed is required.")]
