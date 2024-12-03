@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PetAdoptionApp.Models
@@ -24,5 +25,8 @@ namespace PetAdoptionApp.Models
         public bool IsFavorite { get; set; }
 
         public string Description { get; set; }
+
+        // New property for tags
+        public ICollection<Tag> Tags { get; set; }
     }
 }

@@ -5,14 +5,15 @@ namespace PetAdoptionApp.ViewModels
 {
     public class PetSearchViewModel
     {
-        // Search Criteria
         public string Name { get; set; }
         public string Species { get; set; }
         public string Breed { get; set; }
         public int? MinAge { get; set; }
         public int? MaxAge { get; set; }
 
-        // Search Results
+        // New property for tags
+        public string Tags { get; set; }
+
         public List<Pet> Pets { get; set; }
     }
 }
