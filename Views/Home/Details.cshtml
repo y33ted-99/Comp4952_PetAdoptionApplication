@@ -18,6 +18,7 @@
             <p><strong>Breed:</strong> @Model.Breed</p>
             <p><strong>Description:</strong> @Model.Description</p>
             <p><strong>Is Favorite:</strong> @(Model.IsFavorite ? "Yes" : "No")</p>
+            <p><strong>Tags:</strong> @(Model.Tags != null && Model.Tags.Any() ? string.Join(", ", Model.Tags.Select(t => t.Name)) : "None")</p>
         </div>
     </div>
     <a href="@Url.Action("Index", "Home")" class="btn btn-secondary mt-3">Back to All Pets</a>

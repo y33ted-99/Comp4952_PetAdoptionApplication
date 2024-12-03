@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System;
+using System.Collections.Generic;
 
 namespace PetAdoptionApp.Controllers
 {
@@ -25,14 +26,14 @@ namespace PetAdoptionApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var pets = await _context.Pets.ToListAsync();
+            var pets = await _context.Pets.Include(p => p.Tags).ToListAsync();
             return View(pets);
         }
 
         // View details of a specific pet
         public async Task<IActionResult> Details(int id)
         {
-            var pet = await _context.Pets.FindAsync(id);
+            var pet = await _context.Pets.Include(p => p.Tags).FirstOrDefaultAsync(p => p.Id == id);
             if (pet == null)
             {
                 return NotFound();
@@ -47,7 +48,7 @@ namespace PetAdoptionApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Pet pet, IFormFile ImageUrl)
+        public async Task<IActionResult> Add(Pet pet, IFormFile ImageUrl, string Tags)
         {
             if (ImageUrl != null && ImageUrl.Length > 0)
             {
@@ -60,6 +61,31 @@ namespace PetAdoptionApp.Controllers
             else
             {
                 ModelState.AddModelError("ImageUrl", "An image is required.");
+            }
+
+            // Handle Tags
+            if (!string.IsNullOrEmpty(Tags))
+            {
+                var tagNames = Tags.Split(',').Select(t => t.Trim()).ToList();
+                pet.Tags = new List<Tag>();
+
+                foreach (var tagName in tagNames)
+                {
+                    var normalizedTagName = tagName.ToLower();
+                    var existingTag = await _context.Tags
+                        .FirstOrDefaultAsync(t => t.Name.ToLower() == normalizedTagName);
+
+                    if (existingTag != null)
+                    {
+                        pet.Tags.Add(existingTag);
+                    }
+                    else
+                    {
+                        var newTag = new Tag { Name = tagName };
+                        pet.Tags.Add(newTag);
+                        _context.Tags.Add(newTag);
+                    }
+                }
             }
 
             if (ModelState.IsValid)
@@ -75,7 +101,7 @@ namespace PetAdoptionApp.Controllers
         // Display favorite pets
         public async Task<IActionResult> Favorites()
         {
-            var pets = await _context.Pets.Where(p => p.IsFavorite).ToListAsync();
+            var pets = await _context.Pets.Include(p => p.Tags).Where(p => p.IsFavorite).ToListAsync();
             return View(pets);
         }
 
@@ -98,7 +124,7 @@ namespace PetAdoptionApp.Controllers
 
         public async Task<IActionResult> Search(PetSearchViewModel searchModel)
         {
-            var query = _context.Pets.AsQueryable();
+            var query = _context.Pets.Include(p => p.Tags).AsQueryable();
 
             // Apply filters based on search criteria
             if (!string.IsNullOrEmpty(searchModel.Name))
@@ -124,6 +150,13 @@ namespace PetAdoptionApp.Controllers
             if (searchModel.MaxAge.HasValue)
             {
                 query = query.Where(p => p.Age <= searchModel.MaxAge.Value);
+            }
+
+            // Filter by tags
+            if (!string.IsNullOrEmpty(searchModel.Tags))
+            {
+                var tagList = searchModel.Tags.Split(',').Select(t => t.Trim().ToLower()).ToList();
+                query = query.Where(p => p.Tags.Any(tag => tagList.Contains(tag.Name.ToLower())));
             }
 
             // Execute the query and get the list of pets

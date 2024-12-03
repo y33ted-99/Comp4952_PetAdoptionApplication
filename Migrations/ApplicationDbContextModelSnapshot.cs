@@ -52,6 +52,51 @@ namespace PetAdoptionApplication.Migrations
 
                     b.ToTable("Pets");
                 });
+
+            modelBuilder.Entity("PetAdoptionApp.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("PetTag", b =>
+                {
+                    b.Property<int>("PetsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("PetsId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("PetTag");
+                });
+
+            modelBuilder.Entity("PetTag", b =>
+                {
+                    b.HasOne("PetAdoptionApp.Models.Pet", null)
+                        .WithMany()
+                        .HasForeignKey("PetsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PetAdoptionApp.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 #pragma warning restore 612, 618
         }
     }

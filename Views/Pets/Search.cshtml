@@ -25,6 +25,10 @@
                 <label>Maximum Age:</label>
                 <input type="number" name="MaxAge" value="@Model.MaxAge" class="form-control" />
             </div>
+            <div class="form-group col-md-3">
+                <label>Tags (comma-separated):</label>
+                <input type="text" name="Tags" value="@Model.Tags" class="form-control" />
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
@@ -39,6 +43,7 @@
                     <th>Species</th>
                     <th>Breed</th>
                     <th>Age</th>
+                    <th>Tags</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -50,6 +55,7 @@
                         <td>@pet.Species</td>
                         <td>@pet.Breed</td>
                         <td>@pet.Age</td>
+                        <td>@(pet.Tags != null && pet.Tags.Any() ? string.Join(", ", pet.Tags.Select(t => t.Name)) : "None")</td>
                         <td>
                             <a asp-action="Details" asp-route-id="@pet.Id" class="btn btn-primary btn-sm">Details</a>
                         </td>
