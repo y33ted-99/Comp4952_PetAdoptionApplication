@@ -10,9 +10,12 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace PetAdoptionApp.Controllers
 {
+    [Authorize]
     public class PetsController : Controller
     {
         private readonly ApplicationDbContext _context;
